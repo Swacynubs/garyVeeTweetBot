@@ -36,6 +36,9 @@ def getTime():
 	print(now)
 
 def createTweet(tweetText="No TEXT"):
+
+
+
 	veeProfilePic = Image.open('images/veeProfilePic.png')
 	draw = Image.new('RGB',(1000,500), color = 'white')
 	
@@ -66,6 +69,10 @@ def createTweet(tweetText="No TEXT"):
 		drawing.text((110,offset), line, fill=(0,0,0), font=font2)
 		offset+=35
 
+	#Check if the text is too big and we need to make the picture bigger
+	if(offset > 350):
+		print("Too big! Need to resize image")
+
 	heart = Image.open("images/heart.png","r")
 	heartW, heartH = heart.size
 	
@@ -88,7 +95,7 @@ def createTweet(tweetText="No TEXT"):
 	xBlock = (95+heartW)+len(str(likes)*18)
 	now = datetime.now()
 
-	current_time = now.strftime("%H:%M %p")
+	current_time = now.strftime("%I:%M %p")
 	current_time += " " + datetime.today().strftime('- %b %d, %Y')
 
 
@@ -103,11 +110,12 @@ def createTweet(tweetText="No TEXT"):
 	drawing.line((0, offset+18+heartH+5) + (vPPWidth,offset+18+heartH+5), fill=(150,150,150), width = 2)
 	drawing.line((vPPWidth, 0) + (vPPWidth,offset+18+heartH+5), fill=(150,150,150), width = 2)
 
+
 	#Comments section
 	offset = offset+18+heartH+5
 
 
-	
+
 
 	# margin = offset = 40
 	# for line in textwrap.wrap(tweetText, width=40):
