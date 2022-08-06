@@ -105,6 +105,8 @@ def createTweet(tweetText="No TEXT"):
 
 	#Comments section
 	offset = offset+18+heartH+5
+
+
 	
 
 	# margin = offset = 40
