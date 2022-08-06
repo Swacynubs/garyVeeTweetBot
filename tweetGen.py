@@ -4,8 +4,9 @@ Purpose: Generate fake tweets of Gary Vee for Stinky's Meme Stock Market Bot
 Created: April 6th 2022
 """
 import textwrap
-import datetime
+from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
+import random
 
 # text1 = 'Create img'
 # text2 = 'With Python'
@@ -30,9 +31,9 @@ from PIL import Image, ImageDraw, ImageFont
 
 #myImg.show()
 
-def wrapText(draw, text, font):
-	
-	return draw
+def getTime():
+	now = datetime.time.now()
+	print(now)
 
 def createTweet(tweetText="No TEXT"):
 	veeProfilePic = Image.open('images/veeProfilePic.png')
@@ -70,11 +71,41 @@ def createTweet(tweetText="No TEXT"):
 	
 	draw.paste(heart,(95,offset+10))
 
-	drawing.text((95+heartW,offset+18),"100K",fill=(100,100,100),font=font2Bold)
+	#Randomly generate likes
+	likes = random.randint(0,1000)
+	likesD = random.randint(0,10)
+	if(likesD == 0):
+		likes = f"{likes}K"
+	else:
+		likes = f"{likes}.{likesD}K"
+
+
+
+
+	drawing.text((95+heartW,offset+18),likes,fill=(100,100,100),font=font2Bold)
 	
+	#Spacing for the time
+	xBlock = (95+heartW)+len(str(likes)*18)
+	now = datetime.now()
+
+	current_time = now.strftime("%H:%M %p")
+	current_time += " " + datetime.today().strftime('- %b %d, %Y')
 
 
+
+
+	drawing.text((xBlock,offset+18), current_time ,fill=(100,100,100),font=font2Bold)
 	    
+
+	#Border drawing
+	drawing.line((0, 0) + (vPPWidth,0), fill=(150,150,150), width = 3)
+	drawing.line((0, 0) + (0,offset+18+heartH+5), fill=(150,150,150), width = 2)
+	drawing.line((0, offset+18+heartH+5) + (vPPWidth,offset+18+heartH+5), fill=(150,150,150), width = 2)
+	drawing.line((vPPWidth, 0) + (vPPWidth,offset+18+heartH+5), fill=(150,150,150), width = 2)
+
+	#Comments section
+	offset = offset+18+heartH+5
+	
 
 	# margin = offset = 40
 	# for line in textwrap.wrap(tweetText, width=40):
@@ -84,8 +115,7 @@ def createTweet(tweetText="No TEXT"):
 	draw.show()
 
 
-createTweet("Hello world! This text is awesome!Hello world! This text is awesome!")
-
+createTweet("Hello world! This text is awesome!")
 
 
 
@@ -99,5 +129,3 @@ def center_text(img,font,text1,text2,fill1,fill2):
     draw.text(p1, text1, fill=fill1, font=font) # draw text on top of image
     draw.text(p2, text2, fill=fill2, font=font) # draw text on top of image
     return img
-
-
