@@ -106,13 +106,13 @@ def createTweet(tweetText="No TEXT"):
 
 	#Border drawing
 	drawing.line((0, 0) + (vPPWidth,0), fill=(150,150,150), width = 3)
-	drawing.line((0, 0) + (0,offset+18+heartH+5), fill=(150,150,150), width = 2)
-	drawing.line((0, offset+18+heartH+5) + (vPPWidth,offset+18+heartH+5), fill=(150,150,150), width = 2)
-	drawing.line((vPPWidth, 0) + (vPPWidth,offset+18+heartH+5), fill=(150,150,150), width = 2)
+	drawing.line((0, 0) + (0,offset+25+heartH+5), fill=(150,150,150), width = 2)
+	drawing.line((0, offset+25+heartH+5) + (vPPWidth,offset+25+heartH+5), fill=(150,150,150), width = 2)
+	drawing.line((vPPWidth, 0) + (vPPWidth,offset+25+heartH+5), fill=(150,150,150), width = 2)
 
 
 	#Comments section
-	offset = offset+18+heartH+5
+	offset = offset+25+heartH+5
 	commentPic = Image.open('images/comment.png')
 	draw.paste(commentPic,(100,offset+10))
 
@@ -121,12 +121,20 @@ def createTweet(tweetText="No TEXT"):
 
 	randomString = str(randomNum)
 	if(randomNum >= 1000):
-		randomString
-		randomString = randomString[0].join([randomString[x] for x in range(1,len(randomString))])
-
+		#print("NUM:",randomNum)
+		#randomString1 = randomString[0] + ","
+		#print("OK:",randomString1)
+		#randomString1.join([randomString[x] for x in range(1,len(randomString))])
+		randomString = "{:,}".format(randomNum)
+	randomString += " people are talking about this"
 	drawing.text((100+commentPic.size[1]+10, offset + 10 + 3), randomString, fill=(0,0,200), font=font2)
 
 
+	#Extra outline
+	drawing.line((0, offset) + (0,offset+55), fill=(150,150,150), width = 2)
+	drawing.line((0, offset+55) + (vPPWidth,offset+55), fill=(150,150,150), width = 2)
+	drawing.line((vPPWidth, offset) + (vPPWidth,offset+55), fill=(150,150,150), width = 2)
+	#drawing.line((vPPWidth, 0) + (vPPWidth,offset+18+heartH+5), fill=(150,150,150), width = 2)
 
 
 	# margin = offset = 40
