@@ -70,7 +70,7 @@ def createTweet(tweetText="No TEXT"):
 		offset+=35
 
 	#Check if the text is too big and we need to make the picture bigger
-	if(offset > 350):
+	if(offset > 400):
 		print("Too big! Need to resize image")
 
 	heart = Image.open("images/heart.png","r")
@@ -113,6 +113,18 @@ def createTweet(tweetText="No TEXT"):
 
 	#Comments section
 	offset = offset+18+heartH+5
+	commentPic = Image.open('images/comment.png')
+	draw.paste(commentPic,(100,offset+10))
+
+	yOffset = commentPic.size[0] + 5
+	randomNum = random.randint(0,10000)
+
+	randomString = str(randomNum)
+	if(randomNum >= 1000):
+		randomString
+		randomString = randomString[0].join([randomString[x] for x in range(1,len(randomString))])
+
+	drawing.text((100+commentPic.size[1]+10, offset + 10 + 3), randomString, fill=(0,0,200), font=font2)
 
 
 
