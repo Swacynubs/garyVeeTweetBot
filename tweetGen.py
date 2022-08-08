@@ -35,12 +35,11 @@ def getTime():
 	now = datetime.time.now()
 	print(now)
 
-def createTweet(tweetText="No TEXT"):
+def checkSizeOfText(tweetText,size=200):
 
-
-
+	
 	veeProfilePic = Image.open('images/veeProfilePic.png')
-	draw = Image.new('RGB',(1000,500), color = 'white')
+	draw = Image.new('RGB',(1000,size), color = 'white')
 	
 	font2 = ImageFont.truetype("SanFrancisco\\SFUIText\\SFUIText-Regular.otf", size=25)
 	font2Bold = ImageFont.truetype("SanFrancisco\\SFUIText\\SFUIText-Semibold.otf", size=25)
@@ -64,7 +63,47 @@ def createTweet(tweetText="No TEXT"):
 
 	offset=100
 	# wrapText(draw,tweetText,font2)
-	lines = textwrap.wrap(tweetText, width=70)
+	lines = textwrap.wrap(tweetText, width=65)
+	for line in lines:
+		drawing.text((110,offset), line, fill=(0,0,0), font=font2)
+		offset+=35
+	returnSize = size
+	print("OFFSET!",offset,"| SIZE:",size)
+	#Check if the text is too big and we need to make the picture bigger
+	if(offset+100 > size):
+		returnSize = checkSizeOfText(tweetText,size+100)
+	return returnSize
+
+def createTweet(tweetText="No TEXT",size=500):
+
+
+
+	veeProfilePic = Image.open('images/veeProfilePic.png')
+	draw = Image.new('RGB',(1000,size), color = 'white')
+	
+	font2 = ImageFont.truetype("SanFrancisco\\SFUIText\\SFUIText-Regular.otf", size=25)
+	font2Bold = ImageFont.truetype("SanFrancisco\\SFUIText\\SFUIText-Semibold.otf", size=25)
+	drawing = ImageDraw.Draw(draw)
+	textW,textH = drawing.textsize(tweetText)
+	vPPWidth,vPPHeight = veeProfilePic.size
+	print("Width of text:",textW)
+	print("Height of text:",textH)
+	print("Width of PP:",vPPWidth)
+	print("Height of PP:",vPPHeight)
+	
+
+	#Check size
+	widthFont2 = font2.getlength(tweetText)
+	print("W:",widthFont2)
+	# if widthFont2 > vPPWidth:
+	# 	print("text too big")
+	
+
+	draw.paste(veeProfilePic)	
+
+	offset=100
+	# wrapText(draw,tweetText,font2)
+	lines = textwrap.wrap(tweetText, width=65)
 	for line in lines:
 		drawing.text((110,offset), line, fill=(0,0,0), font=font2)
 		offset+=35
@@ -143,9 +182,12 @@ def createTweet(tweetText="No TEXT"):
 	#     offset += font.getsize(line)[1]
 
 	draw.show()
+	draw.save("tmp.png")
 
+tweetText = "Something that happened yesterday, has nothing to do with tomorrow."
+mySize = checkSizeOfText(tweetText)
 
-createTweet("Hello world! This text is awesome!")
+createTweet(tweetText,mySize)
 
 
 
