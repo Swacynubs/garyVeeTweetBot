@@ -7,6 +7,7 @@ import textwrap
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 import random
+import markovify
 
 # text1 = 'Create img'
 # text2 = 'With Python'
@@ -70,8 +71,8 @@ def checkSizeOfText(tweetText,size=200):
 	returnSize = size
 	print("OFFSET!",offset,"| SIZE:",size)
 	#Check if the text is too big and we need to make the picture bigger
-	if(offset+100 > size):
-		returnSize = checkSizeOfText(tweetText,size+100)
+	if(offset+150 > size):
+		returnSize = checkSizeOfText(tweetText,size+75)
 	return returnSize
 
 def createTweet(tweetText="No TEXT",size=500):
@@ -187,7 +188,23 @@ def createTweet(tweetText="No TEXT",size=500):
 tweetText = "Something that happened yesterday, has nothing to do with tomorrow."
 mySize = checkSizeOfText(tweetText)
 
-createTweet(tweetText,mySize)
+
+
+def generateText():
+	with open("GVQuotes.txt", encoding="utf8") as f:
+		text = f.read()
+
+	# Build the model.
+	text_model = markovify.Text(text)
+
+	#Return a tweet
+	return (text_model.make_sentence())
+
+
+#============================================
+# Running the program
+#============================================
+createTweet(generateText(),mySize)
 
 
 
