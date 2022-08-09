@@ -6,7 +6,7 @@ Discord Bot for GaryVeeTweets
 - Python3
 - Pip
 - Pillow
----Extra:
+
 - Markovify
 
 
