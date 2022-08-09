@@ -36,7 +36,7 @@ def getTime():
 	now = datetime.time.now()
 	print(now)
 
-def checkSizeOfText(tweetText,size=200):
+def checkSizeOfText(tweetText,size=150):
 
 	
 	veeProfilePic = Image.open('images/veeProfilePic.png')
@@ -51,6 +51,7 @@ def checkSizeOfText(tweetText,size=200):
 	print("Height of text:",textH)
 	print("Width of PP:",vPPWidth)
 	print("Height of PP:",vPPHeight)
+	print("HH: ", size)
 	
 
 	#Check size
@@ -65,17 +66,18 @@ def checkSizeOfText(tweetText,size=200):
 	offset=100
 	# wrapText(draw,tweetText,font2)
 	lines = textwrap.wrap(tweetText, width=65)
+	print("len:",len(lines))
 	for line in lines:
 		drawing.text((110,offset), line, fill=(0,0,0), font=font2)
 		offset+=35
 	returnSize = size
 	print("OFFSET!",offset,"| SIZE:",size)
 	#Check if the text is too big and we need to make the picture bigger
-	if(offset+150 > size):
-		returnSize = checkSizeOfText(tweetText,size+75)
+	if(offset+125 > size):
+		returnSize = checkSizeOfText(tweetText,size+50)
 	return returnSize
 
-def createTweet(tweetText="No TEXT",size=500):
+def createTweet(tweetText="No TEXT",size=400):
 
 
 
@@ -87,15 +89,16 @@ def createTweet(tweetText="No TEXT",size=500):
 	drawing = ImageDraw.Draw(draw)
 	textW,textH = drawing.textsize(tweetText)
 	vPPWidth,vPPHeight = veeProfilePic.size
-	print("Width of text:",textW)
-	print("Height of text:",textH)
-	print("Width of PP:",vPPWidth)
-	print("Height of PP:",vPPHeight)
+	# print("Width of text:",textW)
+	# print("Height of text:",textH)
+	# print("Width of PP:",vPPWidth)
+	# print("Height of PP:",vPPHeight)
+	
 	
 
 	#Check size
 	widthFont2 = font2.getlength(tweetText)
-	print("W:",widthFont2)
+	# print("W:",widthFont2)
 	# if widthFont2 > vPPWidth:
 	# 	print("text too big")
 	
@@ -110,8 +113,8 @@ def createTweet(tweetText="No TEXT",size=500):
 		offset+=35
 
 	#Check if the text is too big and we need to make the picture bigger
-	if(offset > 400):
-		print("Too big! Need to resize image")
+	# if(offset > 400):
+	# 	print("Too big! Need to resize image")
 
 	heart = Image.open("images/heart.png","r")
 	heartW, heartH = heart.size
@@ -185,9 +188,6 @@ def createTweet(tweetText="No TEXT",size=500):
 	draw.show()
 	draw.save("tmp.png")
 
-tweetText = "Something that happened yesterday, has nothing to do with tomorrow."
-mySize = checkSizeOfText(tweetText)
-
 
 
 def generateText():
@@ -204,7 +204,10 @@ def generateText():
 #============================================
 # Running the program
 #============================================
-createTweet(generateText(),mySize)
+genText = generateText()
+mySize = checkSizeOfText(genText)
+genText = "def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):def center_text(img,font,text1,text2,fill1,fill2):"
+createTweet(genText,mySize)
 
 
 
